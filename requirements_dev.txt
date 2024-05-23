@@ -3,6 +3,7 @@ pandas
 mlxtend
 flask
 boto3
+s3fs
 
 # testing packages
 pytest==7.1.3

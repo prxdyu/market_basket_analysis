@@ -1,0 +1,8 @@
+__pycache__
+.pytest_cache
+logs
+test.py
+env
+.github
+notebooks
+init_setup.sh
