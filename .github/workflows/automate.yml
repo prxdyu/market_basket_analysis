@@ -12,7 +12,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: market_basket_analysis
   CONTAINER_NAME: market_basket_analysis
-  AWS_REGION: us-east-1
+  
 
 # defining the jobs
 jobs:
