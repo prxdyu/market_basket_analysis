@@ -1,5 +1,5 @@
 # defining the name of the workflow 
-name: Continous Integration and Continous Deployment
+name: CI/CD Pipeline
 
 # specifying this workflow will get triggered if we push anything to the main branch
 on:
@@ -12,13 +12,13 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: market_basket_analysis
   CONTAINER_NAME: market_basket_analysis
-  SERVER_PUBLIC_IP: 52.90.53.178
+  
   
 
 # defining the jobs
 jobs:
-  # defining job1
-  Continous-integration:
+  # defining Continous integration which tested our application when any push happends
+  Continous integration:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,16 +37,16 @@ jobs:
       - name: Run tests with pytest
         run: pytest test.py
   
-  # defining job2 which requires job1
-  Continous deployment:
-    needs: Continous-integration
+  # defining Continous delivery which builds and pushes docker image to AWS ECR
+  Continous delivery:
+    needs: Continous integration
     runs-on: ubuntu-latest
     environment: production
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         
-      # Add the provided lines here
+      # sanity check
       - name: Print AWS Secrets
         run: |
           echo "AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}"
@@ -69,7 +69,7 @@ jobs:
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         
-      - name: Build, tag, push image to Amazon ECR
+      - name: Build, tag and push image to Amazon ECR
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -79,9 +79,14 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image = $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
+  # defining Continous deployment which pulls docker image from AWS ECR and pushed it to the EC2 instance
+  Continous deployment:
+    needs: Continous delivery
+    runs-on: self-hosted
+    environment: production
+    steps:
       - name: Deploy docker image from ECR to EC2 instance
         id: deploy-image
-        runs-on: self-hosted
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
