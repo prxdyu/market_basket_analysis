@@ -1,0 +1,8 @@
+[2024-05-23 11:52:33,386] - 97  werkzeug - INFO- [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2024-05-23 11:52:33,386] - 97  werkzeug - INFO- [33mPress CTRL+C to quit[0m
+[2024-05-23 11:52:35,356] - 97  werkzeug - INFO- 127.0.0.1 - - [23/May/2024 11:52:35] "GET / HTTP/1.1" 200 -
+[2024-05-23 11:52:36,888] - 97  werkzeug - INFO- 127.0.0.1 - - [23/May/2024 11:52:36] "GET /recommend HTTP/1.1" 200 -
+[2024-05-23 11:52:54,718] - 97  werkzeug - INFO- 127.0.0.1 - - [23/May/2024 11:52:54] "GET /recommend HTTP/1.1" 200 -
+[2024-05-23 11:52:57,623] - 97  werkzeug - INFO- 127.0.0.1 - - [23/May/2024 11:52:57] "POST /recommend HTTP/1.1" 200 -
+[2024-05-23 11:53:10,100] - 97  werkzeug - INFO- 127.0.0.1 - - [23/May/2024 11:53:10] "GET /recommend HTTP/1.1" 200 -

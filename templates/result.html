@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .result-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .result-container h2 {
+            text-align: center;
+        }
+        .recommendation {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        /* Style for the "Go Back" link */
+        .go-back-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #fff; /* Text color */
+            background-color: #dc3545; /* Light red background color */
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none; /* Remove default underline */
+            transition: background-color 0.3s ease; /* Smooth color transition */
+        }
+        /* Hover effect for the "Go Back" link */
+        .go-back-link:hover {
+            background-color: #c82333; /* Darker red color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h2>Recommendations</h2>
+        <h5 style="text-align: center;">for the basket {{product}}</h5>
+        {% for recommendation in recommendations %}
+            <div class="recommendation">{{ recommendation }}</div>
+        {% endfor %}
+        <!-- Go Back link with light red color -->
+        <a href="/recommend" class="go-back-link">Go Back</a>
+    </div>
+</body>
+</html>

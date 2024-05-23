@@ -1,0 +1,19 @@
+[2024-05-23 11:33:19,681] - 35  root - INFO- Data Ingestion Started
+[2024-05-23 11:33:19,707] - 621  aiobotocore.credentials - INFO- Found credentials in shared credentials file: ~/.aws/credentials
+[2024-05-23 11:34:31,993] - 41  root - INFO- Successfully read food_mart_data from AWS S3 bucket
+[2024-05-23 11:35:38,183] - 49  root - INFO- Saved the raw.csv in the aws s3 bucket
+[2024-05-23 11:35:38,183] - 50  root - INFO- Data Ingestion Completed
+[2024-05-23 11:35:38,183] - 42  root - INFO- Feature Engineering Started
+[2024-05-23 11:36:38,449] - 49  root - INFO- Successfully read raw.csv from aws s3 bucket
+[2024-05-23 11:36:46,178] - 97  root - INFO- Succesfully saved the data with engineered features in aws s3 bucket
+[2024-05-23 11:36:46,241] - 98  root - INFO- Feature Engineering completed
+[2024-05-23 11:36:46,241] - 36  root - INFO- Data Transformation Started
+[2024-05-23 11:36:52,073] - 44  root - INFO- Successfully read raw_with_engineered_features.csv data from s3 
+[2024-05-23 11:37:34,495] - 59  root - INFO- Succesfully tranasformed data for Apriori modelling
+[2024-05-23 11:39:17,863] - 67  root - INFO- Saved the data for Apriori modelling in the S3 bucket
+[2024-05-23 11:39:17,863] - 68  root - INFO- Data transformation completed
+[2024-05-23 11:39:17,926] - 31  root - INFO- Model training Started
+[2024-05-23 11:40:37,562] - 37  root - INFO- Successfully read modelling data from s3 bucket
+[2024-05-23 11:40:44,918] - 53  root - INFO- Successfully mined association rules
+[2024-05-23 11:40:44,923] - 61  root - INFO- Successfully saved association rules
+[2024-05-23 11:40:44,923] - 62  root - INFO- Model training Completed
