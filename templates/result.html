@@ -46,10 +46,14 @@
 <body>
     <div class="result-container">
         <h2>Recommendations</h2>
-        <h5 style="text-align: center;">for the basket {{product}}</h5>
-        {% for recommendation in recommendations %}
-            <div class="recommendation">{{ recommendation }}</div>
-        {% endfor %}
+        {% if recommendations|length ==0 %}
+            <div>Sorry, there are no recommendations available for this basket {{product}} .</div>
+        {% else %}
+            <h5 style="text-align: center;">for the basket {{product}}</h5>
+            {% for recommendation in recommendations %}
+                <div class="recommendation">{{ recommendation }}</div>
+            {% endfor %}
+        {% endif %}
         <!-- Go Back link with light red color -->
         <a href="/recommend" class="go-back-link">Go Back</a>
     </div>
