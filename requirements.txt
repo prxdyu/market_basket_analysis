@@ -2,3 +2,4 @@
 pandas
 mlxtend
 flask
+s3fs

@@ -1,31 +1,19 @@
-# Building Docker image using multi-stage strategy to reduce image size
+# Use the official Python image from the Docker Hub
+FROM python:3.8-alpine
 
-# First stage: Install dependencies
-FROM python:3.8-slim-buster AS builder
-
-# Set working directory
+# Set the working directory
 WORKDIR /install
 
-# Copy only requirements file first to leverage Docker cache
+# Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
-
-# Second stage: Create the final image
-FROM python:3.8-slim-buster
-
-# Set working directory
-WORKDIR /app
-
-# Copy installed dependencies from the builder stage
-COPY --from=builder /install /usr/local
-
-# Copy the rest of the application
-COPY . .
-
-# Cleanup unnecessary files if any
-RUN rm -rf /var/lib/apt/lists/*
-
-# Command to run the application
-CMD ["flask", "run", "-h", "0.0.0.0", "-p", "5000"]
+# Install build dependencies and Python packages
+RUN apk update && \
+    apk add --no-cache \
+        build-base \
+        gfortran \
+        openblas-dev \
+        cmake \
+        pkgconfig \
+        musl-dev \
+    && pip 
