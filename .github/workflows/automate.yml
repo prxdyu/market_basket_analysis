@@ -89,6 +89,7 @@ jobs:
         id: deploy-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: market_basket_analysis
           IMAGE_TAG: ${{ github.sha }}
        
         run: |
