@@ -93,8 +93,10 @@ jobs:
        
         run: |
              whoami
-             aws ecr get-login-password --region us-east-1 | docker login --ubuntu AWS --password-stdin 851725554615.dkr.ecr.us-east-1.amazonaws.com
+             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725554615.dkr.ecr.us-east-1.amazonaws.com
              docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG;
+             docker stop $CONTAINER_NAME || true
+             docker rm $CONTAINER_NAME || true
              docker run -d -p 5000:5000 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG;
              docker system prune -f
 
