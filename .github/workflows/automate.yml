@@ -7,7 +7,7 @@ on:
     branches:
        - main
 
- defining the jobs
+# defining the jobs
 jobs:
   # defining job1
   job1:
