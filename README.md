@@ -61,11 +61,11 @@ MarketBasketAnalysis
 ```
 The project is organized into several components:
 
-- **artifacts**: contains association rules pickle file for recommendations.
-- **src**: packages the source code for data processing, model training, and evaluation.
-- **app.py**: a simple flask application to build API for getting the recommendations.
-- **Dockerfile**: defines the Docker image for containerizing the flask application.
-- **automate.yml**: configures CI/CD pipelines for automated deployment.
+- `artifacts` contains association rules pickle file for recommendations.
+- `src`: packages the source code for data processing, model training, and evaluation.
+- `app.py`: a simple flask application to build API for getting the recommendations.
+- `Dockerfile`: defines the Docker image for containerizing the flask application.
+- `automate.yml`: configures CI/CD pipelines for automated deployment.
 
 ## 3. Src Package and Training/Prediction Pipeline
 
