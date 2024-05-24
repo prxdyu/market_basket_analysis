@@ -88,36 +88,18 @@ The Flask application serves as the interface for interacting with the Market Ba
 
 1. **Home Page** (`/`): Renders the `index.html` template, which provides options for making predictions.
 2. **Ping Endpoint** (`/ping`): A simple endpoint for testing the server's availability. Returns "Success" when accessed via a GET request.
-3. **Prediction Endpoint** (`/predict`): Accepts both GET and POST requests. When accessed via GET, it renders a form (`form.html`) populated with options for selecting input features. Upon submitting the form via POST request, it processes the input data, makes predictions using the trained model, and renders the result (`result.html`).
+3. **Prediction Endpoint** (`/recommend`): Accepts both GET and POST requests. When accessed via GET, it renders a form (`form.html`) populated with options for selecting input features. Upon submitting the form via POST request, it processes the input data, makes predictions using the trained model, and renders the result (`result.html`).
 
-### Input Features
-
-The prediction endpoint accepts the following input features:
-
-- **Category**: The category of the product.
-- **Subcategory**: The subcategory of the product.
-- **Days Active**: Number of days the user has been active.
-- **R**: Recency (a measure of how recently the user made a purchase).
-- **F**: Frequency (a measure of how often the user makes purchases).
-- **M**: Monetary value (a measure of how much money the user spends).
-- **Loyalty**: Loyalty status of the user.
-- **Avg Purchase Gap**: Average time gap between purchases.
-- **Add to Cart to Purchase Ratios**: Ratio of add-to-cart actions to purchases.
-- **Add to Wishlist to Purchase Ratios**: Ratio of add-to-wishlist actions to purchases.
-- **Click Wishlist Page to Purchase Ratios**: Ratio of clicks on wishlist page to purchases.
-- **User Path**: Path followed by the user on the website.
-- **Cart to Purchase Ratios (Category and Subcategory)**: Ratios of cart actions to purchases for both category and subcategory.
-- **Wishlist to Purchase Ratios (Category and Subcategory)**: Ratios of wishlist actions to purchases for both category and subcategory.
-- **Click Wishlist to Purchase Ratios (Category and Subcategory)**: Ratios of clicks on wishlist to purchases for both category and subcategory.
-- **Product View to Purchase Ratios (Category and Subcategory)**: Ratios of product views to purchases for both category and subcategory.
+### Input 
+Select the products in the basket for which you want to get the recommendations 
 
 ### Output
 
-The prediction endpoint returns the predicted probability of the user making a purchase, expressed as a percentage.
+The recommend endpoint displays the recommendation with one or more products for the given basket.
 
 ## 5. Dockerfile and Containerization
 
-The Dockerfile provided in the project repository allows for containerizing the Customer Propensity Model application using a multi-stage build strategy. This strategy helps reduce the size of the final Docker image by separating the build dependencies from the runtime environment.
+The Dockerfile provided in the project repository allows for containerizing the  application using a multi-stage build strategy. This strategy helps reduce the size of the final Docker image by separating the build dependencies from the runtime environment.
 
 ### Dockerfile Explanation
 
@@ -129,40 +111,48 @@ The Dockerfile consists of two stages:
 
 ### Building the Docker Image
 
-To build the Docker image for the Customer Propensity Model application, navigate to the project directory containing the Dockerfile and execute the following command:
+To build the Docker image for the application, navigate to the project directory containing the Dockerfile and execute the following command:
 
 ```bash
-docker build -t customer-propensity-model .
+docker build -t market_basket_analysis .
 ```
 
 Once the Docker image is built, you can run a Docker container using the following command:
 ```bash
-docker run -d -p 5000:5000 customer-propensity-model
+docker run -d -p 5000:5000 market_basket_analysis
 ```
-This command will start a Docker container based on the customer-propensity-model image, exposing port 5000 on the host machine. You can then access the Customer Propensity Model application by visiting http://localhost:5000 in your web browser
+This command will start a Docker container based on the  market_basket_analysis image, exposing port 5000 on the host machine. You can then access the Market basket analyzer application by visiting http://localhost:5000 in your web browser
 
 
 ## 6. CI/CD Pipelines
 
 The project utilizes GitHub Actions for Continuous Integration (CI) and Continuous Delivery (CD) pipelines to automate the testing, building, and deployment processes.
+
 ![1_jrdZWe4JRU5KDbWfnRxenA](https://github.com/prxdyu/customer_propensity_modelling/assets/105141574/dd8b33fe-5755-498c-83d7-24db2c807857)
 
 
 ### Continuous Integration (CI)
 
-The CI pipeline ensures the correctness and reliability of the Customer Propensity Model application by running automated tests using pytest. These tests validate the functionality of key endpoints in the Flask application. The test.py file is responsible for running the tests to ensure the proper running of flask application
-
-#### Test Workflow
-
-- **Workflow Name**: Containerizing the Image and deploying it to EC2
-- **Trigger**: Automatically triggered upon pushing changes to the `main` branch.
-- **Jobs**:
-  - **Job 1**: Runs tests with pytest.
-  - **Job 2**: Deploys the Docker image to Amazon EC2 instance.
+The CI pipeline ensures the correctness and reliability of the application by running automated tests using pytest. These tests validate the functionality of key endpoints in the Flask application. The test.py file is responsible for running the tests to ensure the proper running of flask application
 
 ### Continuous Delivery (CD)
 
-The CD pipeline automates the deployment of the Docker image containing the Flask application to an Amazon EC2 instance.
+The CD pipeline automates the building of the Docker image containing the Flask application and pushes it to the  Amazon ECR.
+
+### Continuous Deployment (CD)
+
+The CD pipeline automates the deployment of the Docker image containing the Flask application by pulling the docker image from the AWS ECR and deploying it to the AWS EC2 instance
+
+
+#### Test Workflow
+
+- **Workflow Name**: CI/CD Pipeline
+- **Trigger**: Automatically triggered upon pushing changes to the `main` branch.
+- **Jobs**:
+  - **Continous Integration**: runs tests with pytest which tests the flask application when a push is made to the repo.
+  - **Continous Delivery**: builds the docker image of the project and pushes it to Amazon ECR.
+  - **Continous Deployment**: pulls the docker image of the project from AWS ECR and deploys it to the AWS EC2 instance 
+
 
 #### Workflow Steps
 
@@ -174,7 +164,8 @@ The CD pipeline automates the deployment of the Docker image containing the Flas
 6. **Configure AWS Credentials**: Configures AWS credentials for accessing services.
 7. **Login to Amazon ECR**: Logs in to Amazon Elastic Container Registry (ECR) for container image storage.
 8. **Build, tag, push image to Amazon ECR**: Builds the Docker image, tags it, and pushes it to Amazon ECR.
-9. **Deploy docker image from ECR to EC2 instance**: Deploys the Docker image from ECR to an EC2 instance, running the Flask application.
+9. **Kill containers**: Kills any container which runs on port 5000  
+9. **Deploy docker image to EC2 instance**: Pulls the docker image from ECR and Deploys it to an EC2 instance
 
 These CI/CD pipelines ensure the application is thoroughly tested and efficiently deployed to the production environment, enhancing development productivity and maintaining application quality.
 
