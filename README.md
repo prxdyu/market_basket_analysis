@@ -3,7 +3,7 @@
 ![image](https://miro.medium.com/max/2880/1*DHfQvlMVBaJCHpYmj1kmCw.png)
 
 ## 1. Introduction to the Project
-Market Basket Analysis is a data mining technique used by retailers to uncover associations between products purchased by customers. It involves analyzing customer purchase patterns to identify relationships between products that are frequently bought together. This analysis helps retailers understand customer behavior, improve product placement strategies, and drive sales by offering targeted promotions and recommendations. 
+Market Basket Analysis is a data mining technique used by retailers to uncover associations between products purchased by customers. It involves analyzing customer purchase patterns to identify the relationships between products that are frequently bought together. This analysis helps retailers understand customer behavior, improve product placement strategies, and drive sales by offering targeted promotions and recommendations. 
 In this project, the **Apriori algorithm** is employed to  extract meaningful associations from transactional data, aiding in decision-making processes and enhancing market basket analysis strategies. check out the project at [52.90.53.178:5000](http://52.90.53.178:5000/)
 
 ## 2. Project Structure
